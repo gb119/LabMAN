@@ -87,7 +87,7 @@ class UserList_level(models.Model):
 class UserList(models.Model):
     """Handle the linkages between a peice of equipment and a user."""
 
-    user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,unique=True)
+    user=models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     equipment=models.ForeignKey(Equipment,on_delete=models.CASCADE)
     level=models.ForeignKey(UserList_level,on_delete=models.PROTECT)
 

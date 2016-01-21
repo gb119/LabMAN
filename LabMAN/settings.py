@@ -20,6 +20,7 @@ django-grappelli (2.7.1)
 django-rulez (1.0.2)
 django-sitetree (1.4.0)
 django-tinymce (2.0.4)
+django-phonenumber-field 1.0.0
 bleach
 """
 
@@ -30,7 +31,7 @@ from ConfigParser import RawConfigParser
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 config = RawConfigParser()
-config.read(os.path.join(BASE)DIR,'settings.ini'))
+config.read(os.path.join(BASE_DIR,'settings.ini'))
 
 DATABASE_USER = config.get('database', 'DATABASE_USER')
 DATABASE_PASSWORD = config.get('database', 'DATABASE_PASSWORD')

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.db.models import signals
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -17,6 +18,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 class Person(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, swappable=True, on_delete=models.SET(get_sentinel_user))
     job_title = models.CharField(max_length=100)
+    address = models.TextField(blank=True,null=True)
+    phone = PhoneNumberField(blank = True)
     boss = models.ForeignKey(User,null=True,blank=True,on_delete=models.SET_NULL,related_name="underling")
 
 
