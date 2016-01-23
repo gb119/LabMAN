@@ -82,7 +82,7 @@ INSTALLED_APPS = (
 
 LABMAN_APPS={
         "equipment":["Equipment"],
-        "user_profile":["Person"],
+        "auth":["User"],
         "pages":["Page"]
     }
 

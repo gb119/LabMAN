@@ -3,6 +3,9 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from img.admin import ImageInlineAdmin
+from files.admin import FileInlineAdmin
+from pages.admin import PageInlineAdmin
 from user_profile.models import Person
 
 # Define an inline admin descriptor for Employee model
@@ -11,11 +14,11 @@ class PersonInline(admin.StackedInline):
     model = Person
     can_delete = False
     fk_name = 'user'
-    verbose_name_plural = 'people'
+    verbose_name_plural = 'profile'
 
 # Define a new User admin
 class UserAdmin(BaseUserAdmin):
-    inlines = (PersonInline, )
+    inlines = (PersonInline, ImageInlineAdmin,PageInlineAdmin,FileInlineAdmin)
     fieldsets = (
         (_('Personal info'), {'fields': [('username', 'password'),('first_name', 'last_name', 'email')]}),
         (_('Permissions'), {'classes': ('grp-collapse grp-closed',),
