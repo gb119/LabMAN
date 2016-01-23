@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('object_id', models.PositiveIntegerField(null=True, blank=True)),
                 ('category', models.ForeignKey(to='tagged_object.CategoryLabels')),
                 ('content_type', models.ForeignKey(related_name='pages', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='contenttypes.ContentType', null=True)),
-                ('owner', models.ForeignKey(related_name='owned_pages', on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, null=True)),
+                ('owner', models.ForeignKey(related_name='owned_pages', on_delete=django.db.models.deletion.SET_NULL, blank=True, to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
                 'abstract': False,

@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'rulez', # django-rulez package
     'django.contrib.admin',
     'django.contrib.auth',
+    'accounts',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -71,13 +72,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'colorful', # django-colorful package
-    'tagged_object', #provide support for things with category/tags
+   'tagged_object', #provide support for things with category/tags
     'mime_typed_object',#Provide support for objects with mime_types
     'equipment',
     'img',
     'files',
     'pages',
-    'user_profile',
 )
 
 LABMAN_APPS={
@@ -183,3 +183,5 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend', # Django's default auth backend
     'rulez.backends.ObjectPermissionBackend',
 ]
+
+AUTH_USER_MODEL="accounts.Person"

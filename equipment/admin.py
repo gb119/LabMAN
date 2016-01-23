@@ -1,10 +1,12 @@
 from django.contrib import admin
+from accounts.models import Person
 from models import Equipment,Equipment_Status,UserList,UserList_level
 from img.admin import ImageInlineAdmin
 from files.admin import FileInlineAdmin
 from pages.admin import PageInlineAdmin
 from django import forms
 import util
+
 
 class EquipmentAdminForm(forms.ModelForm):
     class Meta:

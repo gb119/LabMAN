@@ -1,6 +1,6 @@
 from django.db import models
+from django.conf import settings
 from django.core.exceptions import NON_FIELD_ERRORS,ValidationError
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey,ContentType
 from tinymce.models import HTMLField
 from util import LabMAN_linkable_objects
@@ -39,7 +39,7 @@ class Tagged_Object(models.Model):
     category = models.ForeignKey(CategoryLabels)
     description = HTMLField(blank=True)
     published = models.DateField(verbose_name="published date",null=True)
-    owner = models.ForeignKey(User,related_name='owned_%(app_label)s',null=True,on_delete=models.SET_NULL,blank=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='owned_%(app_label)s',null=True,on_delete=models.SET_NULL,blank=True)
     content_type = models.ForeignKey(ContentType, blank=True, null=True, related_name="%(app_label)s",
                                      on_delete=models.SET_NULL,limit_choices_to=LabMAN_linkable_objects())
     object_id = models.PositiveIntegerField(blank=True, null=True)

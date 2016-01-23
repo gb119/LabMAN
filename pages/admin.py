@@ -42,8 +42,10 @@ class PageInlineAdmin(GenericStackedInline):
     )
 
 
-
-admin.site.unregister(FlatPage)
+try:
+    admin.site.unregister(FlatPage)
+except:
+    pass
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     form = PageAdminForm

@@ -6,6 +6,8 @@ from tinymce.models import HTMLField
 from img.models import ImageFile as ImageModel
 from rulez import registry
 
+from accounts.models import Person
+
 class Equipment_Status(models.Model):
     """Represents a possible equipment status."""
 
@@ -32,6 +34,7 @@ class Equipment(models.Model):
 
     class Meta:
         verbose_name_plural="equipment"
+
 
     name=models.CharField(max_length=50)
     description = HTMLField()

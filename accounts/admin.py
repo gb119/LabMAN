@@ -1,24 +1,17 @@
-from django.contrib import admin
+from django.contrib.admin import register
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
-from django.utils.translation import ugettext, ugettext_lazy as _
 
+from django.utils.translation import  ugettext_lazy as _
+
+from accounts.models import Person
 from img.admin import ImageInlineAdmin
 from files.admin import FileInlineAdmin
 from pages.admin import PageInlineAdmin
-from user_profile.models import Person
 
-# Define an inline admin descriptor for Employee model
-# which acts a bit like a singleton
-class PersonInline(admin.StackedInline):
-    model = Person
-    can_delete = False
-    fk_name = 'user'
-    verbose_name_plural = 'profile'
 
 # Define a new User admin
+@register(Person)
 class UserAdmin(BaseUserAdmin):
-    inlines = (PersonInline, ImageInlineAdmin,PageInlineAdmin,FileInlineAdmin)
     fieldsets = (
         (_('Personal info'), {'fields': [('username', 'password'),('first_name', 'last_name', 'email')]}),
         (_('Permissions'), {'classes': ('grp-collapse grp-closed',),
@@ -26,9 +19,10 @@ class UserAdmin(BaseUserAdmin):
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'classes': ('grp-collapse grp-closed',),
                                  'fields': (('last_login', 'date_joined'),)}),
+        ('Profile',{'classes': ('grp-collapse grp-closed',),
+                    'fields':(("job_title","boss"),("address","phone"),),
+                    }),
     )
+    inlines=(ImageInlineAdmin,PageInlineAdmin,FileInlineAdmin)
 
 
-# Re-register UserAdmin
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)

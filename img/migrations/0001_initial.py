@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('content', models.FileField(upload_to=b'%(app_label)s/%Y-%m/')),
                 ('category', models.ForeignKey(to='tagged_object.CategoryLabels')),
                 ('content_type', models.ForeignKey(related_name='img', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='contenttypes.ContentType', null=True)),
-                ('owner', models.ForeignKey(related_name='owned_img', on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, null=True)),
+                ('owner', models.ForeignKey(related_name='owned_img', on_delete=django.db.models.deletion.SET_NULL, blank=True, to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
                 'abstract': False,
