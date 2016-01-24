@@ -5,6 +5,7 @@ from django.db import models, migrations
 import django.utils.timezone
 import phonenumber_field.modelfields
 import django.contrib.auth.models
+import tinymce.models
 import django.db.models.deletion
 from django.conf import settings
 import django.core.validators
@@ -31,12 +32,10 @@ class Migration(migrations.Migration):
                 ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('job_title', models.CharField(default=b'', max_length=100)),
                 ('address', models.TextField(default=b'', blank=True)),
                 ('phone', phonenumber_field.modelfields.PhoneNumberField(default=b'', max_length=128, blank=True)),
-                ('boss', models.ForeignKey(related_name='underling', on_delete=django.db.models.deletion.SET_NULL, blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('boss', models.ForeignKey(related_name='underlings', on_delete=django.db.models.deletion.SET_NULL, blank=True, to=settings.AUTH_USER_MODEL, null=True)),
                 ('groups', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Group', blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Permission', blank=True, help_text='Specific permissions for this user.', verbose_name='user permissions')),
             ],
             options={
                 'abstract': False,
@@ -46,5 +45,36 @@ class Migration(migrations.Migration):
             managers=[
                 ('objects', django.contrib.auth.models.UserManager()),
             ],
+        ),
+        migrations.CreateModel(
+            name='JobTitle',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=40)),
+                ('description', tinymce.models.HTMLField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name='StatusLabels',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('status', models.CharField(max_length=40)),
+                ('description', tinymce.models.HTMLField()),
+            ],
+        ),
+        migrations.AddField(
+            model_name='person',
+            name='job_title',
+            field=models.ForeignKey(related_name='people', blank=True, to='accounts.JobTitle', null=True),
+        ),
+        migrations.AddField(
+            model_name='person',
+            name='status',
+            field=models.ForeignKey(related_name='pople', blank=True, to='accounts.StatusLabels', null=True),
+        ),
+        migrations.AddField(
+            model_name='person',
+            name='user_permissions',
+            field=models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Permission', blank=True, help_text='Specific permissions for this user.', verbose_name='user permissions'),
         ),
     ]
