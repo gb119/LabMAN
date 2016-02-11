@@ -22,6 +22,7 @@ django-sitetree (1.4.0)
 django-tinymce (2.0.4)
 django-phonenumber-field 1.0.0
 bleach
+django-scheduler
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -72,6 +73,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'colorful', # django-colorful package
+    'schedule',
    'tagged_object', #provide support for things with category/tags
     'mime_typed_object',#Provide support for objects with mime_types
     'equipment',
