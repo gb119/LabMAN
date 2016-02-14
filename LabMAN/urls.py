@@ -17,6 +17,9 @@ from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
 from filebrowser.sites import site
+from django.contrib.flatpages import views as pageviews
+from django.contrib.flatpages.models import FlatPage
+from accounts.views import ProfileDetailView
 import img
 
 urlpatterns = [
@@ -24,10 +27,16 @@ urlpatterns = [
     url(r'^autocomplete/', include('autocomplete_light.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^profile/(?P<slug>[a-z0-9]+)/', ProfileDetailView.as_view()),
     url(r'^equipment/',include('equipment.urls')),
     url(r'^image/(.*)','img.views.show_image'),
+    url(r'^gallery/(.*)','img.views.random_image'),
     url(r'^file/(.*)','files.views.stream_file'),
     url(r'^media/(?P<path>.*)$','django.views.static.serve',{'document_root': settings.MEDIA_ROOT, }),
     url(r'^pages/', include('django.contrib.flatpages.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^$', pageviews.flatpage, {'url': '/site/home/'}, name='Home'),
+
 ]
+
+admin.site.unregister(FlatPage)

@@ -1,0 +1,15 @@
+/* ASIDE -------------------------------------------------------------------- */
+
+.aside form[role=search] {
+    border-bottom : 1px solid rgb(193,192,187);
+    padding-bottom : 16px;
+    width : 179px;
+}
+
+.aside input[name=keywords] {
+    width : 127px;
+}
+
+#information_form select {
+    width : 179px;
+}

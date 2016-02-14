@@ -1,0 +1,14 @@
+{% extends "pages/default.html" %}
+{% load static %}
+{% block javascript %}
+{{ block.super }}
+<script type='text/javascript' src="{% static 'js/jquery.cycle.min.js' %}"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+        $('#ticker').cycle({
+        		fx: 'fade',
+                cleartypeNoBg: true
+        	});
+	});
+</script>
+{% endblock javascript %}

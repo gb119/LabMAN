@@ -16,14 +16,25 @@ class PageAdminForm(forms.ModelForm):
 
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
 
-    def clean_url(self,*args,**kargs):
-        tag=self.cleaned_data["tag"].strip("/")
-        category=self.cleaned_data["category"].strip("/")
-        self.cleaned_data["url"]="/".join(["",category,tag,""])
-        return super(Page,self).clean_url(*args,**kargs)
+    def get_changeform_initial_data(self,request):
+        ret=super(self,PageAdminForm).get_changeform_initial_data(request)
+        ret["template"]=ret.pop("template","pages/default.html")
+        return ret
 
     def clean_content(self):
         return util.clean_html(self.cleaned_data["content"])
+
+    def clean(self,*args,**kargs):
+        print self.cleaned_data
+        tag=self.cleaned_data["tag"].strip("/")
+        category=self.cleaned_data["category"].name.strip("/")
+        self.cleaned_data["url"]="/".join(["",category,tag,""])
+        print self.cleaned_data["url"]
+        ret = super(PageAdminForm,self).clean(*args,**kargs)
+        print self.errors
+        print self.non_field_errors()
+        return ret
+
 
 
 class PageInlineAdmin(GenericStackedInline):
@@ -41,11 +52,6 @@ class PageInlineAdmin(GenericStackedInline):
         ("linking",{"fields":("owner",),'classes': ('grp-collapse grp-closed',)}),
     )
 
-
-try:
-    admin.site.unregister(FlatPage)
-except:
-    pass
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     form = PageAdminForm

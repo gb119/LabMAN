@@ -1,43 +1,38 @@
-{% include base_tags/html %}
+{% load static %}
+{% load sitetree %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta name="description" content="" />
-        <title>{% block title %}Condensed Matter Physics: Home{% endblock %}</title>
+        <title>{% block title %}Condensed Matter Physics: Home{% endblock title %}</title>
 {% block javascript %}
         <script type='text/javascript' src='{% static "grappelli/jquery/jquery-2.1.4.min.js" %}'></script>
         <script type='text/javascript' src='{% static "grappelli/jquery/ui/jquery-ui.min.js" %}'></script>
-        <script type='text/javascript' src={% static "LabMAN/js/match_height.js" %}'></script>
-        <script type='text/javascript' src='{% static "LabMAN/js/jquery.cycle.min.js" %}'></script>
-        <script type="text/javascript">
-        	//start using jQuery
-        	$(window).load(matchHeights);
-        	$(window).resize(matchHeights);
-       </script>
-{% endblock %}
+{% endblock javascript %}
 {% block css %}
-        <link rel='stylesheet' type='text/css' href='{% static "LabMAN/style/jquery-ui-1.7.1.custom.css" %}' />
-        <link rel='stylesheet' type='text/css' href='{ static "LabMAN/style/cm-style.css" %}' />
-        <link rel="stylesheet" href='{% static "LabMAN/style/screen.css" %}' media="screen, projection" />
-{% endblock %}
+        <link rel='stylesheet' type='text/css' href='{% static "style/jquery-ui-1.7.1.custom.css" %}' />
+        <link rel='stylesheet' type='text/css' href='{% static "style/cm-style.css" %}' />
+        <link rel="stylesheet" href='{% static "style/screen.css" %}' media="screen, projection" />
+{% endblock css %}
 {% block description %}
         <meta name="Description" content="Condensed Matter Physics" />
-{% endblock %}
-        <link rel="icon" href="/favicon.ico" sizes="32x32">
+{% endblock description %}
+        <link rel="icon" href='{% static "favicon.ico" %}' sizes="32x32">
     </head>
     <body id="leeds-toolkit" class="document">
         <div id="container">
-{% block mainbody }
+
             <div class="header">
     {% block header %}
                 <a id="logo" href="http://www.leeds.ac.uk" title="University of Leeds Homepage"><img src="/assets/img/logo_black.png" class="hidden" alt="University of Leeds" /></a>
                 <h2>&nbsp;</h2>
-    {% endblock %}
+    {% endblock header %}
             </div><!-- header -->
             <div class="aside">
     {% block sidebar %}
+        {% block searchmenu %}
                 <form method="get" action="http://search.leeds.ac.uk/search"
         			id="search">
                     <label for="SearchSite">Search site</label>
@@ -51,117 +46,83 @@
                     <input name="site" value="stoner" type="hidden" />
                     <input type="submit" class="button" value="Go" />
                 </form>
+        {% endblock searchmenu %}
                 <ul class='nav-sub'>
         {% block nav_menu %}
                     <li><a href='/local/intranet'>Intranet</a></li>
-        {% endblock %}
+        {% endblock nav_menu %}
                 </ul>
-    {% endblock %}
+        {% block sidebar_extra %}
+        {% endblock sidebar_extra %}
+    {% endblock sidebar %}
             </div><!-- aside -->
             <div class="content">
     {% block main_content %}
                 <div class="branding">
         {% block branding %}
+            {% block masthead %}
                     <h1><a href="/">Condensed Matter Physics Group</a></h1>
+            {% endblock masthead %}
                     <ul class='nav-main'>
             {% block main_menu %}
-                        <li><a href='/'>Home</a></li>
-                        <li><a href='/Research/intro'>Research</a></li>
-                        <li><a href='/facilities/index'>Facilities</a></li>
-                        <li><a href='/people/'>People</a></li>
-                        <li><a href='/jobs/index'>Vacancies</a></li>
-                        <li><a href='/industry/index'>For Industry</a></li>
-                        <li><a href='/about/contacts'>About Us</a></li>
-            {% endblock %}
+                        {%sitetree_menu from "mainmenu" include "trunk" template "mainmenu.html" %}
+            {% endblock main_menu %}
                     </ul>
-        {% endblock %}
+        {% endblock branding %}
                 </div>
                 <div class="nav">
                     <ul class='breadcrumb'>
         {% block breadcrumb %}
                         <li>Your are here: <a href=http://www.physics.leeds.ac.uk >School of Physics and Astronomy</a></li>
                         <li><a href=/ >Condensed Matter Group</a></li>
-        {% endblock %}
+        {% endblock breadcrumb %}
                     </ul>
                 </div>
                 <div class='content-page page'>
-        {% block papge %}
-                <div class='homecontent'>
-                        <div class='homeheadline'>
-                            <div id='ticker'>
-                                <div>
-                                    <a href='/news/beating_stoner'><h1>Latest results - making copper magnetic with buckyballs</h1>
-                                    <span>More...</a></span>
-                                </div>
-                                <div>
-                                    <a href='/news/Phd_places'><h1> PhD places available in the group  for October 2015 and 2016</h1>
-                                    <span>More...</a></span>
-                                </div>
-                                <div>
-                                    <a href='/news/'><h1>PhD Position: Magnetization dynamics in hybrid ferromagnetic/piezoelectric devices (Dr Thomas Moore)</h1>
-                                    <span>More...</a></span>
-                                </div>
-                                <div>
-                                    <a href='/news/spin-ice'><h1>Spin ices slip into ground state</h1>
-                                    <span>More...</a></span>
-                                </div>
-                                <div>
-                                    <a href='/news/EBL'><h1>State of the art electron beam lithography for Condensed Matter Group</h1>
-                                    <span>More...</a></span>
-                                </div>
-                            </div>
-                            <script type="text/javascript">
-                                $('#ticker').cycle({
-                            		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
-                            	});
-                            </script>
-                        </div>
+        {% block page %}
+                    <h2>This page is intentionally blank</h2>
 
-                        &nbsp;<br/>
-                    </div>
-                    <div class='col-1 left box'>
-                        <h4>Research</h4>
-                        <ul class=''>
-                            <li><a href='/Research/Spintronics'>Spintronics</a></li>
-                            <li><a href='/Research/Portfolio'>Research Portfolio</a></li>
-                            <li><a href='/Research/Tutorials'>Tutorials</a></li>
-                        </ul>
-                    </div>
-                    <div class='col-1 left box'>
-                        <h4>Facilities</h4>
-                        <ul class=''>
-                            <li><a href='/facilities/Materials%20Growth'>Materials Growth</a></li>
-                            <li><a href='/facilities/fabrication'>Fabrication</a></li>
-                            <li><a href='/facilities/Characterisation'>Characterisation</a></li>
-                            <li><a href='/facilities/software'>Software</a></li>
-                        </ul>
-                    </div>
-                    <div class='col-1 left box'>
-                        <h4>About Us</h4>
-                        <ul class=''>
-                            <li><a href='/about/teaching'>Teaching</a></li>
-                            <li><a href='/about/directions'>Directions</a></li>
-                            <li><a href='/about/seminars'>Group Seminars</a></li>
-                            <li><a href='/info/forum'>Group Forum</a></li>
-                            <li><a href='/news/'>More News</a></li>
-                            <li><a href='/about/history'>History of the Group</a></li>
-                            <li><a href='/about/stoner'>Who was E.C. Stoner ?</a></li>
-                            <li><a href='/about/glossary'>Glossary</a></li>
-                        </ul>
-                    </div>
-                    <div class='col-1 left box last'>
-                        <h4>People</h4>
-                        <ul class=''>
-                            <li><a href='/people/#academics'>Academic Staff</a></li>
-                            <li><a href='/people/#emeritus'>Emeritus Professors</a></li>
-                            <li><a href='/people/#VisitingProfs'>Visiting Professors</a></li>
-                            <li><a href='/people/#pdras'>Post Docs</a></li>
-                            <li><a href='/people/#students'>Students</a></li>
-                            <li><a href='/people/#VisitingRes'>Visiting Researchers</a></li>
-                            <li><a href='/people/#Former'>Former Members</a></li>
-                        </ul>
-                    </div>
-        {% endblock %}
+                    <p>An so vulgar to on points wanted. Not rapturous resolving continued household northward gay. He it otherwise supported instantly.
+                    Unfeeling agreeable suffering it on smallness newspaper be. So come must time no as. Do on unpleasing possession as of unreserved.
+                    Yet joy exquisite put sometimes enjoyment perpetual now. Behind lovers eat having length horses vanity say had its.</p>
+
+                    <p>Now led tedious shy lasting females off. Dashwood marianne in of entrance be on wondered possible building. Wondered sociable
+                    he carriage in speedily margaret. Up devonshire of he thoroughly insensible alteration. An mr settling occasion insisted distance
+                    ladyship so. Not attention say frankness intention out dashwoods now curiosity. Stronger ecstatic as no judgment daughter speedily thoughts.
+                    Worse downs nor might she court did nay forth these.</p>
+
+                    <p>Offices parties lasting outward nothing age few resolve. Impression to discretion understood to we interested he excellence.
+                    Him remarkably use projection collecting. Going about eat forty world has round miles. Attention affection at my preferred offending
+                    shameless me if agreeable. Life lain held calm and true neat she. Much feet each so went no from. Truth began maids linen an mr to after.</p>
+
+                    <p>Barton waited twenty always repair in within we do. An delighted offending curiosity my is dashwoods at. Boy prosperous increasing
+                    surrounded companions her nor advantages sufficient put. John on time down give meet help as of. Him waiting and correct believe now
+                    cottage she another. Vexed six shy yet along learn maids her tiled. Through studied shyness evening bed him winding present.
+                    Become excuse hardly on my thirty it wanted.</p>
+
+                    <p>Behaviour we improving at something to. Evil true high lady roof men had open. To projection considered it precaution an
+                    melancholy or. Wound young you thing worse along being ham. Dissimilar of favourable solicitude if sympathize middletons at. Forfeited up
+                    if disposing perfectly in an eagerness perceived necessary. Belonging sir curiosity discovery extremity yet forfeited prevailed own off.
+                    Travelling by introduced of mr terminated. Knew as miss my high hope quit. In curiosity shameless dependent knowledge up.</p>
+
+                    <p>But why smiling man her imagine married. Chiefly can man her out believe manners cottage colonel unknown. Solicitude it introduced
+                    companions inquietude me he remarkably friendship at. My almost or horses period. Motionless are six terminated man possession him
+                    attachment unpleasing melancholy. Sir smile arose one share. No abroad in easily relied an whence lovers temper by. Looked wisdom
+                    common he an be giving length mr.</p>
+
+                    <p>Pianoforte solicitude so decisively unpleasing conviction is partiality he. Or particular so diminution entreaties oh do. Real
+                    he me fond show gave shot plan. Mirth blush linen small hoped way its along. Resolution frequently apartments off all discretion
+                    devonshire. Saw sir fat spirit seeing valley. He looked or valley lively. If learn woody spoil of taken he cause.</p>
+
+                    <p>Merry alone do it burst me songs. Sorry equal charm joy her those folly ham. In they no is many both. Recommend new contented
+                    intention improving bed performed age. Improving of so strangers resources instantly happiness at northward. Danger nearer length
+                    oppose really add now either. But ask regret eat branch fat garden. Become am he except wishes. Past so at door we walk want such
+                    sang. Feeling colonel get her garrets own.</p>
+
+                    <p>Guest it he tears aware as. Make my no cold of need. He been past in by my hard. Warmly thrown oh he common future. Otherwise
+                    concealed favourite frankness on be at dashwoods defective at. Sympathize interested simplicity at do projecting increasing terminated.
+                    As edward settle limits at in.</p>
+        {% endblock page %}
                 </div>
                 <div class="content-info" role="contentinfo">
         {% block footer %}
@@ -181,11 +142,9 @@
                         </li>
                     </ul>
                     <p>&copy; Copyright Leeds 2010</p>
-        {% endblock %}
+        {% endblock footer %}
                 </div>
-    {% endblock %}
+    {% endblock main_content %}
             </div>
-{% endblock %}
-        </div>
     </body>
 </html>

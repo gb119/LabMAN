@@ -10,5 +10,10 @@ class ImageFile(Mime_Typed_Object):
     image_tag.short_description = 'Image'
     image_tag.allow_tags = True
 
+    @property
+    def url(self):
+        """Proxy through for content.url"""
+        return self.content.url
+
     def __unicode__(self):
         return SafeUnicode("{} : {}".format(self.category.name,self.tag,))

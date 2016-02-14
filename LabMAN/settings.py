@@ -23,6 +23,8 @@ django-tinymce (2.0.4)
 django-phonenumber-field 1.0.0
 bleach
 django-scheduler
+django-email-obfuscator
+django-bower
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -73,6 +75,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'colorful', # django-colorful package
+    'email_obfuscator',
+    'djangobower',
     'schedule',
    'tagged_object', #provide support for things with category/tags
     'mime_typed_object',#Provide support for objects with mime_types
@@ -84,7 +88,7 @@ INSTALLED_APPS = (
 
 LABMAN_APPS={
         "equipment":["Equipment"],
-        "auth":["User"],
+        "accounts":["Person"],
         "pages":["Page"]
     }
 
@@ -105,7 +109,9 @@ ROOT_URLCONF = 'LabMAN.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR,"LabMAN","templates"),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -153,15 +159,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/assets/'
 STATIC_ROOT = os.path.join(BASE_DIR,"static")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"LabMAN","static"), # global static files
+]
 
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_URL = "/media/"
 
 # Flatpages
 
-SITE_ID = 1
+SITE_ID = 2
 
 # Filebrowser for TinyMCE
 
@@ -173,7 +182,9 @@ FILEBROWSER_DIRECTORY = ''
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,spellchecker,paste,searchreplace,lists,code,anchor,wordcount",
     'theme': "advanced",
+        'theme_advanced_resizing':True,
     'cleanup_on_startup': True,
+    'relative_urls': False,
     'custom_undo_redo_levels': 10,
 }
 TINYMCE_SPELLCHECKER = True
@@ -187,3 +198,10 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 AUTH_USER_MODEL="accounts.Person"
+
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR,"components")
+
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'bootstrap'
+)

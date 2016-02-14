@@ -11,18 +11,36 @@ from tinymce.models import HTMLField
 class StatusLabels(models.Model):
 
     status=models.CharField(max_length=40)
-    description = HTMLField()
+    description = HTMLField(default="",blank=True)
 
     def __unicode__(self):
         return self.status
 
+class Department(models.Model):
+
+    name=models.CharField(max_length=40)
+    description = HTMLField(default="",blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 class JobTitle(models.Model):
 
     title=models.CharField(max_length=40)
-    description = HTMLField()
+    description = HTMLField(default="",blank=True)
 
     def __unicode__(self):
         return self.title
+
+class Title(models.Model):
+
+    title=models.CharField(max_length=40)
+    description = HTMLField(default="",blank=True)
+
+    def __unicode__(self):
+        return self.title
+
 
 
 class Person(AbstractUser):
@@ -31,10 +49,13 @@ class Person(AbstractUser):
 
 
 
+    title=models.ForeignKey(Title,null=True,blank=True,related_name="people")
     job_title = models.ForeignKey(JobTitle,null=True,blank=True,related_name="people")
     status = models.ForeignKey(StatusLabels,null=True,blank=True,related_name="pople")
+    department = models.ForeignKey(Department,null=True,blank=True,related_name="pople")
     address = models.TextField(blank=True,default="")
     phone = PhoneNumberField(blank = True,default="")
+    project = models.CharField(max_length=80,default="",blank=True)
     boss = models.ForeignKey(settings.AUTH_USER_MODEL,null=True,blank=True,on_delete=models.SET_NULL,related_name="underlings")
 
     try:
@@ -56,6 +77,14 @@ class Person(AbstractUser):
 
     def repr(self):
         return "{} {} <{}>".format(self.first_name,self.last_name,self.email)
+
+    @property
+    def display_name(self):
+        if self.title is not None:
+            ret = "{} {} {}".format(self.title,self.first_name,self.last_name)
+        else:
+            ret = "{} {}".format(self.first_name,self.last_name)
+        return ret
 
 
 

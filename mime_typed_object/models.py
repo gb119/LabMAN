@@ -16,6 +16,7 @@ class Mime_Typed_Object(Tagged_Object):
 
     def save(self,*args,**kargs):
         """Override save to get size and content-type."""
-        self.mime_type=magic.from_buffer(self.content.chunks().next(),mime=True)
+        with magic.Magic(flags=magic.MAGIC_MIME_TYPE) as mimemagic:
+            self.mime_type = mimemagic.id_buffer(self.content.chunks().next())
         self.size=self.content.size
         super(Mime_Typed_Object,self).save(*args,**kargs)

@@ -10,6 +10,6 @@ class Page(Tagged_Object,FlatPage):
     def save(self,*args,**kargs):
         """Overide the save method to calculate the URL field."""
         tag=self.tag.strip("/")
-        category=self.category.strip("/")
-        self.url="/".join(["","pages",category,tag,""])
+        category=self.category.name.strip("/")
+        self.url="/".join(["",category,tag,""])
         super(Page,self).save(*args,**kargs)

@@ -16,7 +16,8 @@ class ImageFileForm(forms.ModelForm):
         """Custom validation method to update mime-type and size fields."""
         data=super(ImageFileForm,self).clean(*args, **kwargs)
         try:
-            mime=magic.from_buffer(data["content"].chunks().next(),mime=True)
+            with magic.Magic(flags=magic.MAGIC_MIME_TYPE) as mimemagic:
+                mime=mimemagic.id_buffer(data["content"].chunks().next())
             if not mime.startswith("image"):
                 raise forms.ValidationError("File had a mime-type of {} - which does not appear to be an image !".format(mime))
             data["mime_type"]=mime
