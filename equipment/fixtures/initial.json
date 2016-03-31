@@ -1,0 +1,78 @@
+[
+{
+    "model": "equipment.equipment_status",
+    "pk": 1,
+    "fields": {
+        "name": "Kaput",
+        "description": "<p>Totally defunct</p>",
+        "status": "#000000"
+    }
+},
+{
+    "model": "equipment.equipment_status",
+    "pk": 2,
+    "fields": {
+        "name": "Broken",
+        "description": "<p>Not currently working</p>",
+        "status": "#ff0000"
+    }
+},
+{
+    "model": "equipment.equipment_status",
+    "pk": 3,
+    "fields": {
+        "name": "At risk",
+        "description": "<p>Somethings are not working correctly</p>",
+        "status": "#ff9900"
+    }
+},
+{
+    "model": "equipment.equipment_status",
+    "pk": 4,
+    "fields": {
+        "name": "Working",
+        "description": "<p>All working correctly</p>",
+        "status": "#00cc00"
+    }
+},
+{
+    "model": "equipment.userlist_level",
+    "pk": 10,
+    "fields": {
+        "name": "Trainee",
+        "description": "<p>Only able to use equipment with an instructor</p>"
+    }
+},
+{
+    "model": "equipment.userlist_level",
+    "pk": 20,
+    "fields": {
+        "name": "User",
+        "description": "<p>Trained user</p>"
+    }
+},
+{
+    "model": "equipment.userlist_level",
+    "pk": 30,
+    "fields": {
+        "name": "Advanced User",
+        "description": "<p>Fully expert user</p>"
+    }
+},
+{
+    "model": "equipment.userlist_level",
+    "pk": 40,
+    "fields": {
+        "name": "Instructor",
+        "description": "<p>Trains other users</p>"
+    }
+},
+{
+    "model": "equipment.userlist_level",
+    "pk": 50,
+    "fields": {
+        "name": "Manager",
+        "description": "<p>In charge</p>"
+    }
+}
+]

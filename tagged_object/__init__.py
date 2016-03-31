@@ -1,0 +1,1 @@
+default_app_config = 'tagged_object.apps.Tagged_ObjectAppConfig'

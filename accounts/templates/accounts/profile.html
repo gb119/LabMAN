@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load email_obfuscator %}
+{% load email_obfuscator %}{% load img_tags %}
 {% block title %}Condensed Matter Physics: {{ person.display_name }}{% endblock title %}
 {% block page %}
 <h1>{{ person.display_name }}</h1>
@@ -7,7 +7,7 @@
 <div>
     <div class = "right">
 
-        <img src='{{ profile_image.url }}' alt='{{ person.display_name }}' width=190/>
+        {% img_tag person.profile_image 200 %}
         <h5>Contact Details</h5>
         <table>
             <tr><td>Room:</td><td>{{ person.address }}</td></tr>
@@ -15,6 +15,6 @@
             <tr><td>Email:</td><td><a href='mailto:{{ person.email}}'>{{ person.email|obfuscate }}</a></td></tr>
         </table>
     </div>
-{{ profile_page.content|safe }}
+{{ person.profile_page.content|safe }}
 </div>
 {% endblock page %}

@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, render
-from django.core.servers.basehttp import FileWrapper
+from django.core.files import File
 from django.http import StreamingHttpResponse,HttpResponseNotFound
 from django.conf import settings
-from models import ImageFile
+from .models import ImageFile
 from random import choice
 import os
 
@@ -16,7 +16,8 @@ def show_image(request,pth):
     obj=get_object_or_404(ImageFile,tag=tag,category__name=category)
     real_path=os.path.join(settings.MEDIA_ROOT,obj.content.name)
     chunk_size = 8192
-    response = StreamingHttpResponse(FileWrapper(open(real_path), chunk_size),
+    f=File(open(real_path,"rb"),obj.content.name)
+    response = StreamingHttpResponse(f.chunks(chunk_size),
                            content_type=obj.mime_type)
     response['Content-Length'] = obj.size
     return response
@@ -28,7 +29,8 @@ def random_image(request,pth):
         obj=choice(objs)
         real_path=os.path.join(settings.MEDIA_ROOT,obj.content.name)
         chunk_size = 8192
-        response = StreamingHttpResponse(FileWrapper(open(real_path), chunk_size),
+        f=File(open(real_path,"rb"),obj.content.name)
+        response = StreamingHttpResponse(f.chunks(chunk_size),
                                content_type=obj.mime_type)
         response['Content-Length'] = obj.size
 

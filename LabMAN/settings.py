@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 """Installed PyPI packages:
-Django (1.8.4)
+Django (1.9.2)
 django-autocomplete-light (2.2.5)
 django-colorful (1.1.0)
 django-filebrowser (3.5.7)
@@ -29,7 +29,10 @@ django-bower
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from ConfigParser import RawConfigParser
+try:
+    from ConfigParser import RawConfigParser
+except ImportError: # Python 3 ?
+    from configparser import RawConfigParser
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -60,15 +63,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'grappelli', #django-grapelli package
+    'django.contrib.contenttypes',
+    'grappelli.dashboard',
+    'grappelli',
+    #'suit',
     'filebrowser', # django-filebrowser package
     'tinymce', # django-tinymce package
     'sitetree', # django-sitetree package
     'rulez', # django-rulez package
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'accounts',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -76,20 +83,22 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'colorful', # django-colorful package
     'email_obfuscator',
+    'inplaceeditform',
     'djangobower',
     'schedule',
-   'tagged_object', #provide support for things with category/tags
-    'mime_typed_object',#Provide support for objects with mime_types
+   'lm_utils', #provide support for things with category/tags
     'equipment',
     'img',
     'files',
     'pages',
+    'locations',
 )
 
 LABMAN_APPS={
         "equipment":["Equipment"],
         "accounts":["Person"],
-        "pages":["Page"]
+        "pages":["Page"],
+        "locations":["Location"]
     }
 
 MIDDLEWARE_CLASSES = (
@@ -180,15 +189,22 @@ FILEBROWSER_DIRECTORY = ''
 #TinyMCE editor for text areas
 
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "table,spellchecker,paste,searchreplace,lists,code,anchor,wordcount",
-    'theme': "advanced",
-        'theme_advanced_resizing':True,
-    'cleanup_on_startup': True,
-    'relative_urls': False,
-    'custom_undo_redo_levels': 10,
+    'selector': 'textarea',
+    'theme': 'modern',
+    'plugins': 'link image preview codesample contextmenu table code advlist emoticons imagetools visualblocks',
+    'toolbar1': 'bold italic underline | strikethorugh | superscript | subscript | styleselect |  fontselect | fontsizeselect | bullist numlist | outdent indent | table |',
+    "toolbar2": 'alignleft aligncenter alignright alignjustify | link image | codesample | preview code',
+    'contextmenu': 'formats | link image',
+    'content_css' : '/assets/style/cm-style.css',
+    'menubar': False,
+    'inline': False,
+    'statusbar': True,
+    'height': 360,
 }
+
 TINYMCE_SPELLCHECKER = True
-TINYMCE_COMPRESSOR = True
+TINYMCE_COMPRESSOR = False
+TINYMCE_JS_URL = '//cdn.tinymce.com/4/tinymce.min.js'
 
 # Auth settings
 
@@ -205,3 +221,22 @@ BOWER_INSTALLED_APPS = (
     'jquery',
     'bootstrap'
 )
+
+
+GRAPPELLI_INDEX_DASHBOARD = 'LabMAN.dashboard.CustomIndexDashboard'
+
+
+#INPLACEEDIT_EDIT_EMPTY_VALUE = 'Double click to edit'
+#INPLACEEDIT_AUTO_SAVE = True
+#INPLACEEDIT_EVENT = "dblclick"
+#INPLACEEDIT_DISABLE_CLICK = True  # For inplace edit text into a link tag
+#INPLACEEDIT_EDIT_MESSAGE_TRANSLATION = 'Write a translation' # transmeta option
+#INPLACEEDIT_SUCCESS_TEXT = 'Successfully saved'
+#INPLACEEDIT_UNSAVED_TEXT = 'You have unsaved changes'
+#INPLACE_ENABLE_CLASS = 'enable'
+#DEFAULT_INPLACE_EDIT_OPTIONS = {} # dictionnary of the optionals parameters that the templatetag can receive to change its behavior (see the Advanced usage section)
+#DEFAULT_INPLACE_EDIT_OPTIONS_ONE_BY_ONE = True # modify the behavior of the DEFAULT_INPLACE_EDIT_OPTIONS usage, if True then it use the default values not specified in your template, if False it uses these options only when the dictionnary is empty (when you do put any options in your template)
+#ADAPTOR_INPLACEEDIT_EDIT = 'app_name.perms.MyAdaptorEditInline' # Explain in Permission Adaptor API
+#ADAPTOR_INPLACEEDIT = {'myadaptor': 'app_name.fields.MyAdaptor'} # Explain in Adaptor API
+#INPLACE_GET_FIELD_URL = None # to change the url where django-inplaceedit use to get a field
+#INPLACE_SAVE_URL = None # to change the url where django-inplaceedit use to save a field

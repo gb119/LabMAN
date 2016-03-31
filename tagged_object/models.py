@@ -3,16 +3,28 @@ from django.conf import settings
 from django.core.exceptions import NON_FIELD_ERRORS,ValidationError
 from django.contrib.contenttypes.fields import GenericForeignKey,ContentType
 from tinymce.models import HTMLField
+from django.utils.html import format_html
+
 from util import LabMAN_linkable_objects
+
 
 
 class CategoryLabels(models.Model):
 
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+
     name=models.CharField(max_length=40)
     description = HTMLField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+        
+    @property
+    def safe_description(self):
+        return format_html(self.description)
+
 
 class Tagged_Object(models.Model):
 
@@ -44,6 +56,11 @@ class Tagged_Object(models.Model):
                                      on_delete=models.SET_NULL,limit_choices_to=LabMAN_linkable_objects())
     object_id = models.PositiveIntegerField(blank=True, null=True)
     content_object = GenericForeignKey("content_type", "object_id",for_concrete_model=True)
-
-    def __unicode__(self):
+    
+    def __str__(self):
         return "{}/{}".format(self.category,self.tag)
+        
+    def safe_description(self):
+        return format_html(self.description)
+    safe_description.short_description="Description"
+

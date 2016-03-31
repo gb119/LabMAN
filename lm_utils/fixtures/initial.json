@@ -1,0 +1,18 @@
+[
+{
+    "model": "lm_utils.categorylabels",
+    "pk": 2,
+    "fields": {
+        "name": "site",
+        "description": "<p>PAges and images for the website</p>"
+    }
+},
+{
+    "model": "lm_utils.categorylabels",
+    "pk": 3,
+    "fields": {
+        "name": "profile",
+        "description": "<p>Images, files and pages for user profiles</p>"
+    }
+},
+]

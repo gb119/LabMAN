@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from django.utils.translation import  ugettext_lazy as _
 
-from accounts.models import Person,StatusLabels,JobTitle,Department,Title
+from .models import Person,StatusLabels,JobTitle,Department,Title
 
 from django import forms
 import util
@@ -22,7 +22,7 @@ class StatusLabels_AdminForm(forms.ModelForm):
 
 @register(StatusLabels)
 class StatusLabels_Admin(ModelAdmin):
-    list_display=(["status","description"])
+    list_display=(["status","safe_description"])
 
 class Department_AdminForm(forms.ModelForm):
     class Meta:
@@ -34,7 +34,7 @@ class Department_AdminForm(forms.ModelForm):
 
 @register(Department)
 class Department_Admin(ModelAdmin):
-    list_display=(["name","description"])
+    list_display=(["name","safe_description"])
 
 
 
@@ -48,7 +48,7 @@ class JobTitle_AdminForm(forms.ModelForm):
 
 @register(JobTitle)
 class Title_Admin(ModelAdmin):
-    list_display=(["title","description"])
+    list_display=(["title","safe_description"])
 
 class Title_AdminForm(forms.ModelForm):
     class Meta:
@@ -60,7 +60,7 @@ class Title_AdminForm(forms.ModelForm):
 
 @register(Title)
 class Title_Admin(ModelAdmin):
-    list_display=(["title","description"])
+    list_display=(["title","safe_description"])
 
 
 
@@ -84,7 +84,7 @@ class UserAdmin(BaseUserAdmin):
         (_('Important dates'), {'classes': ('grp-collapse grp-closed',),
                                  'fields': (('last_login', 'date_joined'),)}),
         ('Profile',{'classes': ('grp-collapse grp-closed',),
-                    'fields':(("status","job_title","department","boss",),("address","phone"),"project",),
+                    'fields':(("status","job_title","department","boss",),("address","phone"),("project","office"),),
                     }),
     )
     inlines=(ImageInlineAdmin,PageInlineAdmin,FileInlineAdmin)

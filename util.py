@@ -95,3 +95,4 @@ def LabMAN_linkable_objects():
             else:
                 limit=limit | models.Q(app_label=app,model=model)
     return limit
+    

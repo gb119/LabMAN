@@ -1,0 +1,170 @@
+[
+{
+    "model": "accounts.statuslabels",
+    "pk": 1,
+    "fields": {
+        "name": "superuser",
+        "description": "<p>Website super user</p>"
+    }
+},
+{
+    "model": "accounts.statuslabels",
+    "pk": 2,
+    "fields": {
+        "name": "Academic",
+        "description": "<p>Academic Staff Users</p>"
+    }
+},
+{
+    "model": "accounts.statuslabels",
+    "pk": 3,
+    "fields": {
+        "name": "Research Staff",
+        "description": "<p>Experimental Officers, lab managers</p>"
+    }
+},
+{
+    "model": "accounts.statuslabels",
+    "pk": 4,
+    "fields": {
+        "name": "Post-doc",
+        "description": "<p>&nbsp;Post Doctoral Researcher</p>"
+    }
+},
+{
+    "model": "accounts.statuslabels",
+    "pk": 5,
+    "fields": {
+        "name": "Postgraduate",
+        "description": "<p>&nbsp;Research Post Grad student</p>"
+    }
+},
+{
+    "model": "accounts.statuslabels",
+    "pk": 6,
+    "fields": {
+        "name": "Project Student",
+        "description": "<p>&nbsp;Undergraduate project student</p>"
+    }
+},
+{
+    "model": "accounts.statuslabels",
+    "pk": 7,
+    "fields": {
+        "name": "Technical Staff",
+        "description": "<p>Technician&nbsp;</p>"
+    }
+},
+{
+    "model": "accounts.statuslabels",
+    "pk": 8,
+    "fields": {
+        "name": "Administrative Staff",
+        "description": "<p>&nbsp;Admin</p>"
+    }
+},
+{
+    "model": "accounts.statuslabels",
+    "pk": 9,
+    "fields": {
+        "name": "IT Staff",
+        "description": "<p>&nbsp;IT Support</p>"
+    }
+},
+{
+    "model": "accounts.department",
+    "pk": 1,
+    "fields": {
+        "name": "website",
+        "description": "<p>Website specific users</p>"
+    }
+},
+{
+    "model": "accounts.jobtitle",
+    "pk": 1,
+    "fields": {
+        "name": "Web developer",
+        "description": "<p>I develop the website</p>"
+    }
+},
+{
+    "model": "accounts.title",
+    "pk": 1,
+    "fields": {
+        "name": "Dr",
+        "description": "<p>Someone who has a PhD</p>"
+    }
+},
+{
+    "model": "accounts.title",
+    "pk": 2,
+    "fields": {
+        "name": "Prof.",
+        "description": "<p>&nbsp;Professor</p>"
+    }
+},
+{
+    "model": "accounts.title",
+    "pk": 3,
+    "fields": {
+        "name": "",
+        "description": "<p>&nbsp;Not Title</p>"
+    }
+},
+{
+    "model": "accounts.title",
+    "pk": 4,
+    "fields": {
+        "name": "Mr",
+        "description": "<p>Standard male title</p>"
+    }
+},
+{
+    "model": "accounts.title",
+    "pk": 5,
+    "fields": {
+        "name": "Ms",
+        "description": "<p>&nbsp;Non-marital status specific female title</p>"
+    }
+},
+{
+    "model": "accounts.title",
+    "pk": 6,
+    "fields": {
+        "name": "Miss",
+        "description": "<p>Miss</p>"
+    }
+},
+{
+    "model": "accounts.title",
+    "pk": 7,
+    "fields": {
+        "name": "Mrs",
+        "description": "<p>&nbsp;MRs</p>"
+    }
+},
+{
+    "model": "accounts.person",
+    "pk": 1,
+    "fields": {
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "Web",
+        "last_name": "Admin",
+        "email": "postmaster@localhost",
+        "is_staff": true,
+        "is_active": true,
+        "title": null,
+        "job_title": 1,
+        "status": 1,
+        "department": 1,
+        "office": 1,
+        "address": "",
+        "phone": "",
+        "project": "LabMAN Admin",
+        "boss": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

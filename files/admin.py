@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django import forms
-from models import UserFile
+from .models import UserFile
 from django.contrib.contenttypes.admin import GenericStackedInline
-import magic
 import util
 
 
@@ -16,8 +15,7 @@ class UserFileForm(forms.ModelForm):
         """Custom validation method to update mime-type and size fields."""
         data=super(UserFileForm,self).clean(*args, **kwargs)
         try:
-            mime=magic.from_buffer(data["content"].read(1024),mime=True)
-            data["mime_type"]=mime
+            data["mime_type"]=UserFile.get_mime(data["content"])
             data["size"]=data["content"].size
         except AttributeError:
             raise forms.ValidationError("Could not determine file's mime type")
@@ -36,6 +34,7 @@ class FileInlineAdmin(GenericStackedInline):
     fieldsets=(
         (None,{"fields":(("category","tag","owner"),"description","content",)}),
     )
+    suit_classes = 'suit-tab suit-tab-files'
 
 
 # Register your models here.
@@ -43,7 +42,7 @@ class FileInlineAdmin(GenericStackedInline):
 class UserFile_Admin(admin.ModelAdmin):
     form = UserFileForm
     exclude = ("mime_type","size",)
-    list_display = ("category","tag","description","mime_type")
+    list_display = ("category","tag","mime_type","safe_description",)
 
     related_lookup_fields = {
         'fk': ['owner'],

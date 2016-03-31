@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import CategoryLabels
+from .models import CategoryLabels
 from django import forms
 import util
 
@@ -13,4 +13,4 @@ class CategoryLabels_AdminForm(forms.ModelForm):
 
 @admin.register(CategoryLabels)
 class CategoryLabels_Admin(admin.ModelAdmin):
-    list_display=(["name","description"])
+    list_display=(["name","safe_description"])

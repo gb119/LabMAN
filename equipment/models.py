@@ -5,41 +5,36 @@ from django.contrib.contenttypes.fields import GenericRelation
 from tinymce.models import HTMLField
 from img.models import ImageFile as ImageModel
 from rulez import registry
+from django.utils.html import format_html
 
 from accounts.models import Person
+from locations.models import Location
+from lm_utils.models import DescribedItem
 
-class Equipment_Status(models.Model):
+class Equipment_Status(DescribedItem):
     """Represents a possible equipment status."""
 
     class Meta:
         verbose_name = "equipment status label"
 
-    name=models.CharField(max_length=40)
-    description = HTMLField()
     status=RGBColorField()
 
-
-    def __unicode__(self):
-        return self.name
-
     def cbox(self):
-        return "<div style='height: 20px; width: 32px; max-width: 32px; background-color:{}'>&nbsp;</div>".format(self.status)
+        return format_html("<div style='height: 20px; width: 32px; max-width: 32px; background-color:{}'>&nbsp;</div>".format(self.status))
 
-    cbox.allow_tags=True
     cbox.short_description="Status"
 
 
-class Equipment(models.Model):
+class Equipment(DescribedItem):
     """Describes an item of equipment."""
 
     class Meta:
         verbose_name_plural="equipment"
 
 
-    name=models.CharField(max_length=50)
-    description = HTMLField()
     owner=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="Owned_Equipment")
     status=models.ForeignKey(Equipment_Status)
+    location = models.ForeignKey(Location,null=True,blank=True,related_name="equipment")
     users=models.ManyToManyField(settings.AUTH_USER_MODEL,through="UserList")
     try:
         from img.models import ImageFile
@@ -56,11 +51,6 @@ class Equipment(models.Model):
         files = GenericRelation(UserFile,null=True, blank=True, default=None)
     except ImportError:
         pass
-
-
-
-    def __unicode__(self):
-        return self.name
 
     def can_book(self, user_obj):
         """Implements a rule for a  booking permission right"""
@@ -83,18 +73,22 @@ class UserList_level(models.Model):
     level=models.IntegerField(unique=True, primary_key=True,null=False)
 
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+
+    def safe_description(self):
+        return format_html(self.description)
+    safe_description.short_description="Description"
 
 
 class UserList(models.Model):
     """Handle the linkages between a peice of equipment and a user."""
 
-    user=models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="userOf")
     equipment=models.ForeignKey(Equipment,on_delete=models.CASCADE)
     level=models.ForeignKey(UserList_level,on_delete=models.PROTECT)
 
-    def __unicode__(self):
+    def __str__(self):
         return "{} - Level {}".format(self.user,self.level)
 
 #Apply permissions

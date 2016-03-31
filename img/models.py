@@ -1,5 +1,6 @@
-from mime_typed_object.models import Mime_Typed_Object
-from django.utils.safestring import SafeUnicode
+from lm_utils.models import Mime_Typed_Object
+from django.utils.safestring import SafeText
+
 # Create your models here.
 
 class ImageFile(Mime_Typed_Object):
@@ -15,5 +16,6 @@ class ImageFile(Mime_Typed_Object):
         """Proxy through for content.url"""
         return self.content.url
 
-    def __unicode__(self):
-        return SafeUnicode("{} : {}".format(self.category.name,self.tag,))
+    def __str__(self):
+        return SafeText("{} : {}".format(self.category.name,self.tag,))
+

@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django import forms
-from models import ImageFile
+from .models import ImageFile
 from django.contrib.contenttypes.admin import GenericStackedInline
-import magic
 import util
 
 
@@ -16,13 +15,12 @@ class ImageFileForm(forms.ModelForm):
         """Custom validation method to update mime-type and size fields."""
         data=super(ImageFileForm,self).clean(*args, **kwargs)
         try:
-            with magic.Magic(flags=magic.MAGIC_MIME_TYPE) as mimemagic:
-                mime=mimemagic.id_buffer(data["content"].chunks().next())
+            mime = ImageFile.get_mime(data["content"])
             if not mime.startswith("image"):
                 raise forms.ValidationError("File had a mime-type of {} - which does not appear to be an image !".format(mime))
             data["mime_type"]=mime
             data["size"]=data["content"].size
-        except AttributeError:
+        except ImportError:
             raise forms.ValidationError("Could not determine file's mime type")
 
     def clean_description(self):
@@ -44,6 +42,7 @@ class ImageInlineAdmin(GenericStackedInline):
     fieldsets=(
         (None,{"fields":(("category","tag","owner"),"description",("content","image_tag"))}),
     )
+    suit_classes = 'suit-tab suit-tab-images'
 
 
 
@@ -52,7 +51,7 @@ class ImageInlineAdmin(GenericStackedInline):
 class ImageFile_Admin(admin.ModelAdmin):
 
     exclude = ("mime_type","size",)
-    list_display = ("category","tag","mime_type",)
+    list_display = ("category","tag","mime_type","safe_description",)
     readonly_fields = ('image_tag',)
     form = ImageFileForm
     related_lookup_fields = {

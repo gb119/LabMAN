@@ -1,6 +1,5 @@
 from django.contrib import admin
-from accounts.models import Person
-from models import Equipment,Equipment_Status,UserList,UserList_level
+from .models import Equipment,Equipment_Status,UserList,UserList_level
 from img.admin import ImageInlineAdmin
 from files.admin import FileInlineAdmin
 from pages.admin import PageInlineAdmin
@@ -44,16 +43,16 @@ class UserListLevelAdminForm(forms.ModelForm):
 
 @admin.register(Equipment_Status)
 class Equipment_Status_Admin(admin.ModelAdmin):
-    list_display=("name","description",Equipment_Status.cbox)
+    list_display=("name","safe_description",Equipment_Status.cbox)
 
 
 @admin.register(UserList_level)
 class UserList_Level_Admin(admin.ModelAdmin):
-    list_display=("name","description","level")
+    list_display=("name","safe_description","level")
 
 
 @admin.register(Equipment)
 class Equipment_Admin(admin.ModelAdmin):
-    list_display=("name","description",Equipment.cbox)
+    list_display=("name","safe_description",Equipment.cbox)
     inlines=[UserListInlineAdmin,ImageInlineAdmin,PageInlineAdmin,FileInlineAdmin]
 

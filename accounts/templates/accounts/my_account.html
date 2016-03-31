@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load email_obfuscator %}{% load img_tags %}{% load inplace_edit %}
+{% block title %}Condensed Matter Physics: {{ my.display_name }}: My Account{% endblock title %}
+{% block javascript %}
+{{ block.super }}
+{% inplace_static %}
+{% endblock javascript %}
+{% block breadcrumb %}
+{{ block.super }}
+<li><a href=/account/myaccount>{{ my.display_name }}'s account</a></li>
+{% endblock breadcrumb %}
+{% block page %}
+<h2>My Account</h2>
+<div class='clearboth'>
+    <table class='noborder col-4'>
+        <tr><td>Name:</td><td colspan=1>{% inplace_edit "my.title" %} {% inplace_edit "my.first_name" %} {% inplace_edit "my.last_name" %}</td>
+            <td rowspan=5>Address :<br/><br/>{% img_tag my.profile_image 100 %}</td>
+            <td rowspan=5>{% inplace_edit "my.address|linebreaks" %}</td></tr>
+        <tr><td>Status :</td><td>{% inplace_edit "my.status" %}</td></tr>
+        <tr><td>Job Title :</td><td>{% inplace_edit "my.job_title" %}</td></tr>
+        <tr><td>ISS ID :</td><td>{% inplace_edit "my.username" %}</td></tr>
+        <tr><td> Dept.</td><td>{% inplace_edit "my.department" %}</td></tr>
+        <tr><td>Boss :</td><td>{% inplace_edit "my.boss" %}</td></tr>
+        <tr><td>Email:</td><td colspa=3>{% inplace_edit "my.email" %}</td></tr>
+        <tr><td>Phone :</td><td>{% inplace_edit "my.phone" %}</td><td>Research Topic :</td><td>{% inplace_edit "my.project" %}</td></tr>
+    </table>
+</div>
+{% if my.userOf.count %}
+<div id="userlist">
+<hr>
+<h3>User lists</h3>
+User is a super-user<br/>
+<table>
+<tr><th>Status</th><th>Level</th><th>Equipment</th><th>Location</th><th colspan=3>Info</th><th>Signed</th></tr>
+    {% for ulist in my.userOf.all %}
+<tr>
+    <td>{{ ulist.equipment.status.cbox|safe }}</td><td>{{ ulist.level.name }} of the</td><td>{{ ulist.equipment.name }}</td><td> at {{ ulist.equipment.location }}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+    {% endfor %}
+</table>
+</div>
+<hr/>
+{% endif %}
+{% endblock page %}

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import TextField
 from django import forms
-from models import Page
+from .models import Page
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.contenttypes.admin import GenericStackedInline
 from tinymce.widgets import TinyMCE
@@ -25,14 +25,14 @@ class PageAdminForm(forms.ModelForm):
         return util.clean_html(self.cleaned_data["content"])
 
     def clean(self,*args,**kargs):
-        print self.cleaned_data
+        print(self.cleaned_data)
         tag=self.cleaned_data["tag"].strip("/")
         category=self.cleaned_data["category"].name.strip("/")
         self.cleaned_data["url"]="/".join(["",category,tag,""])
-        print self.cleaned_data["url"]
+        print(self.cleaned_data["url"])
         ret = super(PageAdminForm,self).clean(*args,**kargs)
-        print self.errors
-        print self.non_field_errors()
+        print(self.errors)
+        print(self.non_field_errors())
         return ret
 
 
@@ -51,6 +51,8 @@ class PageInlineAdmin(GenericStackedInline):
         (None, {"fields": ("content",)}),
         ("linking",{"fields":("owner",),'classes': ('grp-collapse grp-closed',)}),
     )
+    suit_classes = 'suit-tab suit-tab-pages'
+
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):

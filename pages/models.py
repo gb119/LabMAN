@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.flatpages.models import FlatPage
-from tagged_object.models import Tagged_Object
+from lm_utils.models import Tagged_Object
 
 # Create your models here.
 

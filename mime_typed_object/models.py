@@ -1,6 +1,7 @@
 from django.db import models
 from tagged_object.models import Tagged_Object
 import magic
+from mimetypes import guess_type
 
 # Create your models here.
 
@@ -16,7 +17,24 @@ class Mime_Typed_Object(Tagged_Object):
 
     def save(self,*args,**kargs):
         """Override save to get size and content-type."""
-        with magic.Magic(flags=magic.MAGIC_MIME_TYPE) as mimemagic:
-            self.mime_type = mimemagic.id_buffer(self.content.chunks().next())
+        self.mime=self.get_mime(self.content)
         self.size=self.content.size
         super(Mime_Typed_Object,self).save(*args,**kargs)
+        
+    @classmethod
+    def get_mime(cls,content):
+        """Get the mime type of the current file as a string.
+        
+        if content is None, use self.content as the file."""
+
+        
+        try:
+            with magic.Magic(flags=magic.MAGIC_MIME_TYPE) as mimemagic:
+                for chunk in content.chunks():
+                    mime=mimemagic.id_buffer(chunk)
+                    break
+        except AttributeError:
+            mime=guess_type(content.name)[0]
+            
+        return mime
+
