@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'grappelli.dashboard',
     'grappelli',
+    'nested_admin',
     #'suit',
     'filebrowser', # django-filebrowser package
     'tinymce', # django-tinymce package
@@ -92,13 +93,14 @@ INSTALLED_APPS = (
     'files',
     'pages',
     'locations',
+    'bookings',
 )
 
-LABMAN_APPS={
-        "equipment":["Equipment"],
-        "accounts":["Person"],
-        "pages":["Page"],
-        "locations":["Location"]
+LABMAN_APPS={ # Configure how bits of LabMAN interact in GenericRelations
+        "equipment":[{"name":"Equipment","link":True,"book":True,"users":True}],
+        "accounts":[{"name":"Person","link":True,"book":False,"users":False}],
+        "pages":[{"name":"Page","link":True,"book":False,"users":False}],
+        "locations":[{"name":"Location","link":True,"book":True,"users":True}]
     }
 
 MIDDLEWARE_CLASSES = (

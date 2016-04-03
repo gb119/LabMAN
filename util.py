@@ -86,13 +86,19 @@ def clean_html(content):
     """Return content cleaned up of bad tags and styles."""
     return bleach.clean(content,tags=_safe_tags,attributes=_safe_attrs,styles=_safe_css,strip=True,strip_comments=False)
 
-def LabMAN_linkable_objects():
+def LabMAN_select_objects(key="link"):
+    """Read the LabMAN config for objects that match types of generic relations for select lists.
+
+    key (str): one of "link", "book", "users"
+    """
     limit=None
-    for app in settings.LABMAN_APPS:
-        for model in settings.LABMAN_APPS[app]:
-            if limit is None:
-                limit=models.Q(app_label=app,model=model)
-            else:
-                limit=limit | models.Q(app_label=app,model=model)
+    if key in ["link","book","users"]:
+        for app in settings.LABMAN_APPS:
+            for model in settings.LABMAN_APPS[app]:
+                if key not in model or not model[key]:
+                    continue
+                if limit is None:
+                    limit=models.Q(app_label=app,model=model["name"])
+                else:
+                    limit=limit | models.Q(app_label=app,model=model["name"])
     return limit
-    

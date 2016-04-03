@@ -1,0 +1,18 @@
+[
+{
+    "model": "pages.page",
+    "pk": 1,
+    "fields": {
+        "tag": "home",
+        "category": 2,
+        "description": "",
+        "published": "2016-04-03",
+        "owner": null,
+        "content_type": null,
+        "object_id": null,
+        "sites": [
+            2
+        ]
+    }
+}
+]

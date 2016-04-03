@@ -49,7 +49,7 @@
         {% endblock searchmenu %}
                 <ul class='nav-sub'>
         {% block nav_menu %}
-                    <li><a href='/local/intranet'>Intranet</a></li>
+            {%sitetree_menu from "navmenu" include "trunk" template "mainmenu.html" %}
         {% endblock nav_menu %}
                 </ul>
         {% block sidebar_extra %}

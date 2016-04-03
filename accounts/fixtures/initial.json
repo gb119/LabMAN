@@ -158,7 +158,6 @@
         "job_title": 1,
         "status": 1,
         "department": 1,
-        "office": 1,
         "address": "",
         "phone": "",
         "project": "LabMAN Admin",

@@ -30,20 +30,23 @@ js_info_dict = {
 }
 
 urlpatterns = [
-   url(r'^admin/filebrowser/', include(site.urls)),
-    url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^inplaceeditform/', include('inplaceeditform.urls')),
-    url(r'^jsi18n$', django.views.i18n.javascript_catalog, js_info_dict),
+#LabMAN apps
     url(r'^profile/(?P<slug>[a-z0-9]+)/', ProfileDetailView.as_view()),
     url(r'^account/',include('accounts.urls')),
     url(r'^equipment/',include('equipment.urls')),
     url(r'^image/(.*)',img.views.show_image),
     url(r'^gallery/(.*)',img.views.random_image),
     url(r'^file/(.*)',files.views.stream_file),
-    url(r'^media/(?P<path>.*)$',django.views.static.serve,{'document_root': settings.MEDIA_ROOT, }),
     url(r'^pages/', include("django.contrib.flatpages.urls")),
+#Other apps
+   url(r'^admin/filebrowser/', include(site.urls)),
+    url(r'^grappelli/', include('grappelli.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^inplaceeditform/', include('inplaceeditform.urls')),
+    url(r'^jsi18n$', django.views.i18n.javascript_catalog, js_info_dict),
+    url(r'^media/(?P<path>.*)$',django.views.static.serve,{'document_root': settings.MEDIA_ROOT, }),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^nested_admin/', include('nested_admin.urls')),
     url(r'^$', pageviews.flatpage, {'url': '/site/home/'}, name='Home'),
 
 ]

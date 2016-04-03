@@ -1,0 +1,106 @@
+[
+{
+    "model": "lm_utils.categorylabels",
+    "pk": 4,
+    "fields": {
+        "name": "square",
+        "description": "<p>&nbsp;Background images</p>"
+    }
+},
+{
+    "model": "sitetree.tree",
+    "pk": 1,
+    "fields": {
+        "title": "Main Menu",
+        "alias": "mainmenu"
+    }
+},
+{
+    "model": "sitetree.tree",
+    "pk": 2,
+    "fields": {
+        "title": "Navigation Menu",
+        "alias": "navmenu"
+    }
+},
+{
+    "model": "sitetree.treeitem",
+    "pk": 1,
+    "fields": {
+        "title": "Home",
+        "hint": "",
+        "url": "/",
+        "urlaspattern": false,
+        "tree": 1,
+        "hidden": false,
+        "alias": null,
+        "description": "Site home page",
+        "inmenu": true,
+        "inbreadcrumbs": true,
+        "insitetree": true,
+        "access_loggedin": false,
+        "access_guest": false,
+        "access_restricted": false,
+        "access_perm_type": 1,
+        "parent": null,
+        "sort_order": 1,
+        "access_permissions": []
+    }
+},
+{
+    "model": "sitetree.treeitem",
+    "pk": 2,
+    "fields": {
+        "title": "Intranet",
+        "hint": "",
+        "url": "/admin",
+        "urlaspattern": false,
+        "tree": 2,
+        "hidden": false,
+        "alias": null,
+        "description": "",
+        "inmenu": true,
+        "inbreadcrumbs": true,
+        "insitetree": true,
+        "access_loggedin": false,
+        "access_guest": false,
+        "access_restricted": false,
+        "access_perm_type": 1,
+        "parent": null,
+        "sort_order": 3,
+        "access_permissions": []
+    }
+},
+{
+    "model": "sitetree.treeitem",
+    "pk": 3,
+    "fields": {
+        "title": "My Account",
+        "hint": "",
+        "url": "/account/myaccount",
+        "urlaspattern": false,
+        "tree": 2,
+        "hidden": false,
+        "alias": null,
+        "description": "",
+        "inmenu": true,
+        "inbreadcrumbs": true,
+        "insitetree": true,
+        "access_loggedin": true,
+        "access_guest": false,
+        "access_restricted": false,
+        "access_perm_type": 1,
+        "parent": null,
+        "sort_order": 2,
+        "access_permissions": []
+    }
+},
+{
+    "model": "sites.site",
+    "pk": 2,
+    "fields": {
+        "domain": "www.stoner.leeds.ac.,uk",
+        "name": "www.stoner.leeds.ac.,uk"
+    }
+}
+]

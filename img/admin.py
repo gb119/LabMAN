@@ -42,7 +42,6 @@ class ImageInlineAdmin(GenericStackedInline):
     fieldsets=(
         (None,{"fields":(("category","tag","owner"),"description",("content","image_tag"))}),
     )
-    suit_classes = 'suit-tab suit-tab-images'
 
 
 

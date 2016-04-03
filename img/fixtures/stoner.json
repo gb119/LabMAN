@@ -1,0 +1,34 @@
+[
+{
+    "model": "img.imagefile",
+    "pk": 4,
+    "fields": {
+        "tag": "default",
+        "category": 3,
+        "description": "<p>A default anonymous user profile</p>",
+        "published": null,
+        "owner": 1,
+        "content_type": null,
+        "object_id": null,
+        "mime_type": "",
+        "size": 15430,
+        "content": "site/generic-user.png"
+    }
+},
+{
+    "model": "img.imagefile",
+    "pk": 5,
+    "fields": {
+        "tag": "chip",
+        "category": 4,
+        "description": "",
+        "published": null,
+        "owner": 1,
+        "content_type": null,
+        "object_id": null,
+        "mime_type": "",
+        "size": 34627,
+        "content": "img/ImageFile/photo_G3ViOZK.jpg"
+    }
+}
+]

@@ -34,45 +34,5 @@
         "description": "<p>All working correctly</p>",
         "status": "#00cc00"
     }
-},
-{
-    "model": "equipment.userlist_level",
-    "pk": 10,
-    "fields": {
-        "name": "Trainee",
-        "description": "<p>Only able to use equipment with an instructor</p>"
-    }
-},
-{
-    "model": "equipment.userlist_level",
-    "pk": 20,
-    "fields": {
-        "name": "User",
-        "description": "<p>Trained user</p>"
-    }
-},
-{
-    "model": "equipment.userlist_level",
-    "pk": 30,
-    "fields": {
-        "name": "Advanced User",
-        "description": "<p>Fully expert user</p>"
-    }
-},
-{
-    "model": "equipment.userlist_level",
-    "pk": 40,
-    "fields": {
-        "name": "Instructor",
-        "description": "<p>Trains other users</p>"
-    }
-},
-{
-    "model": "equipment.userlist_level",
-    "pk": 50,
-    "fields": {
-        "name": "Manager",
-        "description": "<p>In charge</p>"
-    }
 }
 ]
